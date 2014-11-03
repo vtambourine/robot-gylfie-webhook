@@ -26,7 +26,8 @@
     "sinon-chai": "^2.6.0"
   },
   "scripts": {
-    "start": "./node_modules/.bin/nodemon bootstrap.js"
+    "start": "./node_modules/.bin/nodemon bootstrap.js",
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
