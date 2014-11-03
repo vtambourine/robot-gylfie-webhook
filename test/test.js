@@ -49,7 +49,7 @@ describe('Handlers', function () {
                 .send(payload)
                 .buffer(true)
                 .end(function () {
-                    logger.info.should.have.been.calledWith('Avoid administrative distraction. — says GitHub.');
+                    logger.info.should.have.been.calledWith('Practicality beats purity. — says GitHub.');
                     done();
                 })
         })
