@@ -1,0 +1,41 @@
+{
+  "name": "robot-gylfie-webhook",
+  "version": "0.0.1",
+  "author": "Benjamin Tambourine",
+  "description": "Robot Gylfie WebHook",
+  "engines": {
+    "node": ">=0.11.14"
+  },
+  "engineStrict": true,
+  "dependencies": {
+    "body-parser": "^1.9.0",
+    "express": "^4.x",
+    "glob": "^4.0.6",
+    "mkdirp": "^0.5.0",
+    "nodemon": "^1.2.1",
+    "superagent": "^0.20.0",
+    "traceur": "~0.0.72",
+    "traceur-source-maps": "^1.0.4",
+    "winston": "^0.8.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "mocha": "^2.0.1",
+    "nock": "^0.48.2",
+    "sinon": "^1.11.1",
+    "sinon-chai": "^2.6.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon bootstrap.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtambourine/robot-gylfie-webhook"
+  },
+  "bugs": {
+    "url": "https://github.com/vtambourine/robot-gylfie-webhook/issues"
+  },
+  "homepage": "https://github.com/vtambourine/robot-gylfie-webhook",
+  "license": "MIT",
+  "private": true
+}
