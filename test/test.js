@@ -1,10 +1,10 @@
-var fs = require('fs')
-var path = require('path')
+var fs = require('fs');
+var path = require('path');
 var request = require('superagent');
 var traceur = require('traceur');
-var sinon = require('sinon')
-var chai = require("chai");
-var sinonChai = require("sinon-chai");
+var sinon = require('sinon');
+var chai = require('chai');
+var sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 chai.should();
 
@@ -22,17 +22,17 @@ describe('WebHook Server', function () {
         request
             .get('http://localhost:4567')
             .end(function (response) {
-                response.status.should.be.eq(200)
-                response.text.should.match(/^Gylfie/)
-                done()
+                response.status.should.be.eq(200);
+                response.text.should.match(/^Gylfie/);
+                done();
             });
     });
-})
+});
 
 describe('Handlers', function () {
     describe('Ping Handler', function () {
         before(function () {
-            sinon.stub(logger, "info")
+            sinon.stub(logger, 'info');
         });
 
         after(function () {
@@ -51,13 +51,13 @@ describe('Handlers', function () {
                 .end(function () {
                     logger.info.should.have.been.calledWith('Practicality beats purity. — says GitHub.');
                     done();
-                })
-        })
-    })
+                });
+        });
+    });
 
-    describe('Call Reviewers Handler', function () {
+    describe.skip('Call Reviewers Handler', function () {
         it('should call top two contributors.', function () {
-            console.log('pending');
-        })
-    })
-})
+
+        });
+    });
+});
