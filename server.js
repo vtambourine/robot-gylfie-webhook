@@ -19,6 +19,10 @@ payload.on('error', (error) => {
     logger.error(error.stack);
 });
 
+payload.on('call-maintainers-done', (error) => {
+    console.log('c m done');
+});
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -36,4 +40,6 @@ app.use((request, response) => {
     response.end('Gylfie');
 });
 
-app.listen(4567);
+export default app;
+
+//app.listen(4567);

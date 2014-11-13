@@ -9,4 +9,6 @@ traceur.require.makeDefault(
     {asyncFunctions: true}
 );
 
-require('./server');
+var app = require('./server').default;
+
+app.listen(4567);
