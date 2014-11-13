@@ -18,23 +18,22 @@ var requestStub = {
 };
 
 describe('Call Reviewers Handler Test', function () {
-    beforeEach(function () {
+    beforeEach(() => {
         sinon.stub(logger, 'info');
         sinon.stub(GitHub, 'post');
         GitHub.post.returns(requestStub);
     });
 
-    afterEach(function () {
+    afterEach(() => {
         logger.info.restore();
         GitHub.post.restore();
         requestStub.send.reset();
         requestStub.end.reset();
     });
 
-    it('should call responsible reviewer to pull request #1.', function (done) {
+    it('should call responsible reviewer to pull request #1.', (done) => {
         var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened.txt'), {encoding: 'utf8'}));
-        handler
-            .handle(payload)
+        handler.handle(payload)
             .then(() => {
                 GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/1/comments');
                 requestStub.send.should.have.been.calledWithMatch(
@@ -45,10 +44,9 @@ describe('Call Reviewers Handler Test', function () {
             .catch(done);
     });
 
-    it('should call responsible reviewer to pull request #1.', function (done) {
+    it('should call responsible reviewer to pull request #1.', (done) => {
         var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened-2.txt'), {encoding: 'utf8'}));
-        handler
-            .handle(payload)
+        handler.handle(payload)
             .then(() => {
                 GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/2/comments');
                 requestStub.send.should.have.been.calledWithMatch(
