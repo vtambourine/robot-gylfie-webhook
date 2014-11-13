@@ -9,13 +9,18 @@ import './lib/rest-api';
 
 // GitHub Webhooks events wrapper.
 // @see https://developer.github.com/webhooks
-var payload = new EventEmitter();
-for (let file of glob.sync('./lib/handlers/*.js')) {
-    require(file).default(payload);
-    logger.info(`${path.basename(file, '.js')} module loaded.`);
-}
+var payloadEmitter = new EventEmitter();
+//for (let file of glob.sync('./lib/handlers/*.js')) {
+//    require(file).default(payload);
+//    logger.info(`${path.basename(file, '.js')} module loaded.`);
+//}
 
-payload.on('error', (error) => {
+var P = require('./lib/handlers/ping').default;
+var p = new P;
+
+p.listen(payloadEmitter);
+
+payloadEmitter.on('error', (error) => {
     logger.error(error.stack);
 });
 
@@ -26,7 +31,7 @@ app.use(bodyParser.json());
 app.post('/payload', (request, response, next) => {
     var event = request.headers['x-github-event'];
     if (event) {
-        payload.emit(event, request.body);
+        payloadEmitter.emit(event, request.body);
     }
     next();
 });
@@ -36,4 +41,4 @@ app.use((request, response) => {
     response.end('Gylfie');
 });
 
-app.listen(4567);
+export default app;

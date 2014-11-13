@@ -23,13 +23,14 @@
     "jshint": "^2.5.8",
     "jshint-groups": "^0.6.2",
     "mocha": "^2.0.1",
+    "mocha-traceur": "^2.0.0",
     "nock": "^0.48.2",
     "sinon": "^1.11.1",
     "sinon-chai": "^2.6.0"
   },
   "scripts": {
     "start": "./node_modules/.bin/nodemon bootstrap.js",
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --compilers js:./preprocessor.js"
   },
   "repository": {
     "type": "git",
