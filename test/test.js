@@ -29,8 +29,8 @@ describe('WebHook Server', function () {
     });
 });
 
-describe('Handlers', function () {
-    describe('Ping Handler', function () {
+describe('Actions', function () {
+    describe('Ping Action', function () {
         before(function () {
             sinon.stub(logger, 'info');
         });
@@ -55,7 +55,7 @@ describe('Handlers', function () {
         });
     });
 
-    describe.skip('Call Reviewers Handler', function () {
+    describe.skip('Call Reviewers Action', function () {
         it('should call top two contributors.', function () {
 
         });
