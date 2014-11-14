@@ -10,15 +10,11 @@ import './lib/rest-api';
 // GitHub Webhooks events wrapper.
 // @see https://developer.github.com/webhooks
 var payloadEmitter = new EventEmitter();
-//for (let file of glob.sync('./lib/handlers/*.js')) {
-//    require(file).default(payload);
-//    logger.info(`${path.basename(file, '.js')} module loaded.`);
-//}
-
-var P = require('./lib/handlers/ping').default;
-var p = new P;
-
-p.listen(payloadEmitter);
+for (let file of glob.sync('./lib/handlers/*.js')) {
+    var handler = new (require(file).default);
+    handler.listen(payloadEmitter);
+    logger.info(`${path.basename(file, '.js')} module loaded.`);
+}
 
 payloadEmitter.on('error', (error) => {
     logger.error(error.stack);
