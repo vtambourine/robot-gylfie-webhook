@@ -9,8 +9,10 @@ var path = require('path');
 
 import logger from '../lib/logger';
 import GitHub from '../lib/github';
-import CallReviewersAction from '../lib/actions/callReviewers';
-var action = new CallReviewersAction;
+import CallReviewersAction from '../lib/actions/call-reviewers';
+var action = new CallReviewersAction({
+    disallowedUsers: ['markelog', 'mike.sherov']
+});
 
 var requestStub = {
     send: sinon.stub().returnsThis(),
@@ -57,7 +59,22 @@ describe('Call Reviewers Action Test', function () {
             .catch(done);
     });
 
-    it('should call responsible reviewer to pull request #3 with only one contributor.', (done) => {
+    it.only('should call responsible reviewer to pull request #3 with user in ignore list.', (done) => {
+        var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-3.txt'), {encoding: 'utf8'}));
+        action.handle(payload)
+            .then(() => {
+                console.log('>>>\n', logger.info.args);
+                console.log('>>>\n', GitHub.post.args);
+                GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/3/comments');
+                requestStub.send.should.have.been.calledWithMatch(
+                    sinon.match({ body: '@mdevils, обрати на это внимание, пожалуйста!' })
+                );
+                done();
+            })
+            .catch(done);
+    });
+
+    it('should call responsible reviewer to pull request with only one contributor.', (done) => {
         var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/single-author.txt'), {encoding: 'utf8'}));
         action.handle(payload)
             .then(() => {

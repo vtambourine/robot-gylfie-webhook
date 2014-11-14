@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import glob from 'glob';
 import logger from './lib/logger';
+import config from './config.js'
 
 import './lib/rest-api';
 
@@ -11,9 +12,11 @@ import './lib/rest-api';
 // @see https://developer.github.com/webhooks
 var payloadEmitter = new EventEmitter();
 for (let file of glob.sync('./lib/actions/*.js')) {
-    var action = new (require(file).default);
+    var Action = require(file).default;
+    var name = path.basename(file, '.js');
+    var action = new Action(config[name]);
     action.listen(payloadEmitter);
-    logger.info(`${path.basename(file, '.js')} module loaded.`);
+    logger.info(`${name} module loaded.`);
 }
 
 payloadEmitter.on('error', (error) => {

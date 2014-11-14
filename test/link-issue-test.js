@@ -9,7 +9,7 @@ var path = require('path');
 
 import logger from '../lib/logger';
 import Startrek from '../lib/startrek';
-import LinkIssueAction from '../lib/actions/linkIssue';
+import LinkIssueAction from '../lib/actions/link-issue';
 var action = new LinkIssueAction;
 
 var requestStub = {
