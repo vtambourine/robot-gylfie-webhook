@@ -1,6 +1,6 @@
-export var config = {
+export default {
     "call-reviewers": {
         allowedUsers: [],
-        disallowedUsers: ['dfilatov', 'lemmy']
+        disallowedUsers: []
     }
 };
