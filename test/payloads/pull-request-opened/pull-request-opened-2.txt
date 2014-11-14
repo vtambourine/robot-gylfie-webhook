@@ -11,7 +11,7 @@
     "number": 2,
     "state": "open",
     "locked": false,
-    "title": "Another sample payload",
+    "title": "SAMPLE-001 - Another sample payload",
     "user": {
       "login": "vtambourine",
       "id": 1044363,
