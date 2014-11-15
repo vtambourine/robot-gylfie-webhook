@@ -11,7 +11,7 @@ import logger from '../lib/logger';
 import GitHub from '../lib/github';
 import CallReviewersAction from '../lib/actions/call-reviewers';
 var action = new CallReviewersAction({
-    disallowedUsers: ['markelog', 'mike.sherov']
+    disallowedUsers: ['markelog']
 });
 
 var requestStub = {
@@ -47,12 +47,12 @@ describe('Call Reviewers Action Test', function () {
     });
 
     it('should call responsible reviewer to pull request #2.', (done) => {
-        var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-2.txt'), {encoding: 'utf8'}));
+        var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-3.txt'), {encoding: 'utf8'}));
         action.handle(payload)
             .then(() => {
-                GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/2/comments');
+                GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/3/comments');
                 requestStub.send.should.have.been.calledWithMatch(
-                    sinon.match({ body: '@ikokostya, @markelog, обратите на это внимание, пожалуйста!' })
+                    sinon.match({ body: '@mdevils, @mike.sherov, обратите на это внимание, пожалуйста!' })
                 );
                 done();
             })
@@ -60,12 +60,12 @@ describe('Call Reviewers Action Test', function () {
     });
 
     it('should call responsible reviewer to pull request #3 with user in ignore list.', (done) => {
-        var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-3.txt'), {encoding: 'utf8'}));
+        var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-2.txt'), {encoding: 'utf8'}));
         action.handle(payload)
             .then(() => {
-                GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/3/comments');
+                GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/2/comments');
                 requestStub.send.should.have.been.calledWithMatch(
-                    sinon.match({ body: '@mdevils, обрати на это внимание, пожалуйста!' })
+                    sinon.match({ body: '@ikokostya, обрати на это внимание, пожалуйста!' })
                 );
                 done();
             })
