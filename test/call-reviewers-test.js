@@ -63,8 +63,6 @@ describe('Call Reviewers Action Test', function () {
         var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-3.txt'), {encoding: 'utf8'}));
         action.handle(payload)
             .then(() => {
-                console.log('>>>\n', logger.info.args);
-                console.log('>>>\n', GitHub.post.args);
                 GitHub.post.should.have.been.calledWith('/repos/vtambourine/node-jscs/issues/3/comments');
                 requestStub.send.should.have.been.calledWithMatch(
                     sinon.match({ body: '@mdevils, обрати на это внимание, пожалуйста!' })
