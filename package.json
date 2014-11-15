@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/nodemon bootstrap.js",
-    "test": "./node_modules/.bin/mocha --compilers js:./preprocessor.js"
+    "test": "./node_modules/.bin/mocha --compilers js:./preprocessor.js --timeout 5000"
   },
   "repository": {
     "type": "git",

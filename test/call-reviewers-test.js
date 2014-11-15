@@ -59,7 +59,7 @@ describe('Call Reviewers Action Test', function () {
             .catch(done);
     });
 
-    it.only('should call responsible reviewer to pull request #3 with user in ignore list.', (done) => {
+    it('should call responsible reviewer to pull request #3 with user in ignore list.', (done) => {
         var payload = JSON.parse(fs.readFileSync(path.join(__dirname, 'payloads/pull-request-opened/pull-request-opened-3.txt'), {encoding: 'utf8'}));
         action.handle(payload)
             .then(() => {
