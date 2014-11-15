@@ -1,5 +1,5 @@
 {
-  "verbose": true,
+  "verbose": false,
   "ext": "js json sh",
   "ignore": [
     ".idea",

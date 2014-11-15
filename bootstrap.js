@@ -9,4 +9,4 @@ traceur.require.makeDefault(
     {asyncFunctions: true}
 );
 
-require('./server');
+require('./server').default.listen(4567);

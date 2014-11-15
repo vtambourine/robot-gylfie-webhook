@@ -4,18 +4,22 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import glob from 'glob';
 import logger from './lib/logger';
+import config from './config.js'
 
 import './lib/rest-api';
 
 // GitHub Webhooks events wrapper.
 // @see https://developer.github.com/webhooks
-var payload = new EventEmitter();
-for (let file of glob.sync('./lib/handlers/*.js')) {
-    require(file).default(payload);
-    logger.info(`${path.basename(file, '.js')} module loaded.`);
+var payloadEmitter = new EventEmitter();
+for (let file of glob.sync('./lib/actions/*.js')) {
+    var Action = require(file).default;
+    var name = path.basename(file, '.js');
+    var action = new Action(config[name]);
+    action.listen(payloadEmitter);
+    logger.info(`${name} module loaded.`);
 }
 
-payload.on('error', (error) => {
+payloadEmitter.on('error', (error) => {
     logger.error(error.stack);
 });
 
@@ -26,7 +30,7 @@ app.use(bodyParser.json());
 app.post('/payload', (request, response, next) => {
     var event = request.headers['x-github-event'];
     if (event) {
-        payload.emit(event, request.body);
+        payloadEmitter.emit(event, request.body);
     }
     next();
 });
@@ -36,4 +40,4 @@ app.use((request, response) => {
     response.end('Gylfie');
 });
 
-app.listen(4567);
+export default app;
