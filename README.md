@@ -1,7 +1,7 @@
 Robot Gylfie
 ============
 
-Robot Gylfie is a project specific assistance webhoook. You may not make use of it as is, but you welcome to borrow some code!
+Robot Gylfie is a project specific assistance webhoook. You may not make use of it as is, but you welcome to borrow some code!!
 
 Prerequisites
 -------------
